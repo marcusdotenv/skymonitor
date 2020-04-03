@@ -50,7 +50,7 @@ body{
 
 .display-data {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   border: 1px solid #000;
