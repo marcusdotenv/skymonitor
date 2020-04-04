@@ -1,24 +1,33 @@
 import React,{useState} from 'react';
 import './styles.css';
 import api from './services/api'
+
+
 const apikey = "ysjFGTI56CVlOMbiAIGm7434IcnjzZ9S";
+
+const language = "pt-br";
 
 
 function App() {
-  const[city, setCity] = useState('');
-  const[state, setState] = useState('');
+  const[city, setCity] = useState(localStorage.getItem('last_city'));
+  const[state, setState] = useState(localStorage.getItem('last_state'));
   const[temperature, setTemperature] = useState('');
+  const[label, setLabel] = useState('');
 
   async function getData(e){
     e.preventDefault();
-
     const response = await api.get(`/locations/v1/cities/search?apikey=${apikey}&q=${city+` `+state}`);
       try{
         const locationKey = response.data[0].Key;
-        const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}`);
-        console.log(locationConditions);
+        const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}&language=pt-br`);
+        const label = locationConditions.data[0].WeatherText;
         const temperature = locationConditions.data[0].Temperature.Metric.Value;
+
         setTemperature(temperature);
+        setLabel(label);
+
+        localStorage.setItem('last_city', city);
+        localStorage.setItem('last_state', state);
 
       } catch(err){
         alert('Localização Inválida!')
@@ -43,6 +52,7 @@ function App() {
         <p>Temperatura</p>
         <p>{temperature}</p>
         <p> Condições </p>
+        <p>{label}</p>
         </div>
       </div>
     </div>
