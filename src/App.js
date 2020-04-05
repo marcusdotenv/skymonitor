@@ -30,6 +30,7 @@ function App() {
 
   const[city, setCity] = useState(storageCity);
   const[state, setState] = useState(storageState);
+  const[cityLabel, setCityLabel] = useState('');
   const[temperature, setTemperature] = useState('');
   const[label, setLabel] = useState('');
   const[icon, setIcon] = useState('');
@@ -70,6 +71,9 @@ function App() {
         setIcon(IconNumber);    // seta em estados valores importantes que eu vou precisar no JSX
         setHumidty(humidty);
         setWind(wind);
+        setCityLabel(city +' '+ state);
+        setCity('');
+        setState('');
 
 
         localStorage.setItem('last_city', city);
@@ -96,6 +100,9 @@ function App() {
             setLabel(label);
             setIcon(IconNumber);
             setHumidty(humidty);
+            setCityLabel(city +' '+ state);
+            setCity('');
+            setState('');
             setWind(wind);
       }
       catch(err){ // não havendo nada no localStorage, o Hook retorna só um log
@@ -120,8 +127,8 @@ function App() {
           <h3>Digite sua cidade e estado</h3>
         </div>
         <div>
-         <input className="city" placeholder="Cidade" value={city} onChange={e => setCity(e.target.value)}/> 
-         <input className="state" placeholder="Estado" value={state} onChange={e => setState(e.target.value)}/> 
+          <input className="city" placeholder="Cidade" value={city} onChange={e => setCity(e.target.value)}/> 
+          <input className="state" placeholder="Estado" value={state} onChange={e => setState(e.target.value)}/> 
         </div>
       </div>
         <button type="submit"> Pesquisar </button>
@@ -129,22 +136,22 @@ function App() {
       </form>
       <div className="display-data">
           <div className="title">
-          <h1> Condições do Tempo </h1>
-          {selectIcon()}
-          <p>{label}</p>
+            <h1> Condições do Tempo </h1>
+            {selectIcon()}
+            <p>{label} - {cityLabel} </p>
           </div>
           <div className="body">
             <div>
-            <p>{temperature}°C </p>
-            <h3> Temperatura </h3>
+              <p>{temperature}°C </p>
+              <h3> Temperatura </h3>
             </div>
             <div>
-            <p>{humidty}% </p>
-            <h3> Umidade relativa </h3>
+              <p>{humidty}% </p>
+              <h3> Umidade relativa </h3>
             </div>
             <div>
-            <p>{speedWind}km/h </p>
-            <h3> Velocidade do Vento </h3>
+              <p>{speedWind}km/h </p>
+              <h3> Velocidade do Vento </h3>
             </div>
           </div>
       </div>
