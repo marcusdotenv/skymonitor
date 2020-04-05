@@ -8,6 +8,7 @@ import {
   WiNightRain,
   WiNightClear,
   WiSnow,
+  WiUmbrella,
 } from "react-icons/wi";
 
 
@@ -98,11 +99,19 @@ function App() {
     <div className="full-container">
       <form onSubmit={getData}>
       <div className="application-section">
+        <div>
         <h1> Sky Monitor </h1>
-        <h3>Digite sua Cidade</h3>
-        <input placeholder="Cidade" value={city} onChange={e => setCity(e.target.value)}/> 
-        <input placeholder="Estado" value={state} onChange={e => setState(e.target.value)}/> 
-        <button type="submit"> Confirmar </button>
+        </div>
+      <div className="input-container">
+        <div>
+          <h3>Digite sua cidade e estado</h3>
+        </div>
+        <div>
+         <input className="city" placeholder="Cidade" value={city} onChange={e => setCity(e.target.value)}/> 
+         <input className="state" placeholder="Estado" value={state} onChange={e => setState(e.target.value)}/> 
+        </div>
+      </div>
+        <button type="submit"> Pesquisar </button>
       </div>
       </form>
       <div className="display-data">
