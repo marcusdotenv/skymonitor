@@ -18,3 +18,7 @@ Produzir uma aplicação capaz de checar a temperatura de localidades requisitad
 - Foi acrescentado um campo de input para que o usuário digite também o estado da cidade a qual ele está buscando. Como há diversas cidades com o mesmo nome (num mesmo país e no mundo), utilizar o estado na pesquisa reduz em muito a chance de haver resultados incorretos. 
 
 - Alerts que indicam quando há uma localização incorreta. Nesse caso, o usuário terá de redigitar a pesquisa. 
+
+
+## Resultado final: 
+![Design final](https://user-images.githubusercontent.com/14362970/78502889-caf33880-7739-11ea-87ac-92855a59e738.jpeg)
