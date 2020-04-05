@@ -33,6 +33,8 @@ function App() {
   const[temperature, setTemperature] = useState('');
   const[label, setLabel] = useState('');
   const[icon, setIcon] = useState('');
+  const[speedWind, setWind] = useState('');
+  const[humidty, setHumidty] = useState('');
 
   function selectIcon(){ // isso tem que ser mudado, provavelmente tem um jeito melhor
     if(icon >= 1 && icon <= 5){
@@ -55,14 +57,20 @@ function App() {
     const response = await api.get(`/locations/v1/cities/search?apikey=${apikey}&q=${city+` `+state}`);
       try{
         const locationKey = response.data[0].Key;
-        const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}&language=pt-br`);
+        const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}&language=pt-br&details=true`);
         const label = locationConditions.data[0].WeatherText;
         const temperature = locationConditions.data[0].Temperature.Metric.Value;
         const IconNumber = locationConditions.data[0].WeatherIcon;
+        const humidty = locationConditions.data[0].RelativeHumidity;
+        const wind = locationConditions.data[0].Wind.Speed.Metric.Value;
+
 
         setTemperature(temperature);
         setLabel(label);
         setIcon(IconNumber);    // seta em estados valores importantes que eu vou precisar no JSX
+        setHumidty(humidty);
+        setWind(wind);
+
 
         localStorage.setItem('last_city', city);
         localStorage.setItem('last_state', state); // seta o storage do navegador
@@ -77,13 +85,18 @@ function App() {
         const response = await api.get(`/locations/v1/cities/search?apikey=${apikey}&q=${city+` `+state}`);
           try{
             const locationKey = response.data[0].Key;
-            const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}&language=pt-br`);
+            const locationConditions = await api.get(`/currentconditions/v1/${locationKey}?apikey=${apikey}&language=pt-br&details=true`);
             const label = locationConditions.data[0].WeatherText;
             const temperature = locationConditions.data[0].Temperature.Metric.Value;
             const IconNumber = locationConditions.data[0].WeatherIcon;
+            const humidty = locationConditions.data[0].RelativeHumidity;
+            const wind = locationConditions.data[0].Wind.Speed.Metric.Value;
+
             setTemperature(temperature);
             setLabel(label);
             setIcon(IconNumber);
+            setHumidty(humidty);
+            setWind(wind);
       }
       catch(err){ // não havendo nada no localStorage, o Hook retorna só um log
           console.log('Não há localStorage disponível')
@@ -126,12 +139,12 @@ function App() {
             <h3> Temperatura </h3>
             </div>
             <div>
-            <p>{temperature}°C </p>
-            <h3> Umidade </h3>
+            <p>{humidty}% </p>
+            <h3> Umidade relativa </h3>
             </div>
             <div>
-            <p>{temperature}°C </p>
-            <h3> Vento </h3>
+            <p>{speedWind}km/h </p>
+            <h3> Velocidade do Vento </h3>
             </div>
           </div>
       </div>
