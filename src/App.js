@@ -13,7 +13,7 @@ import {
 
 
 
-const apikey = "gBbBC7bPAbmACOKzYRsUlwAmFg6945l6";
+const apikey = "API_KEY";
                   // essa key algum dia pode ficar desatualizada. Lembrar de olhar isso.
 var storageCity;
 var storageState;
