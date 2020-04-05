@@ -13,7 +13,7 @@ import {
 
 
 const apikey = "gBbBC7bPAbmACOKzYRsUlwAmFg6945l6";
-
+                  // essa key algum dia pode ficar desatualizada. Lembrar de olhar isso.
 var storageCity;
 var storageState;
 
@@ -31,25 +31,24 @@ function App() {
   const[state, setState] = useState(storageState);
   const[temperature, setTemperature] = useState('');
   const[label, setLabel] = useState('');
-  const[time, setTime] = useState('');
   const[icon, setIcon] = useState('');
 
-  function selectIcon(){
+  function selectIcon(){ // isso tem que ser mudado, provavelmente tem um jeito melhor
     if(icon >= 1 && icon <= 5){
-      return <WiDaySunny size={40} color="#000"/>
+      return <WiDaySunny size={80} color="#F2F2F2"/>
     } else if(icon >= 6 && icon <= 11 || icon >= 35 && icon <= 38){
-      return <WiCloud size={40} color="#000"/>
+      return <WiCloud size={80} color="#F2F2F2"/>
     } else if(icon >= 12 && icon <= 17){
-      return <WiDayRain size={40} color="#000"/>
+      return <WiDayRain size={80} color="#F2F2F2"/>
     } else if(icon >= 39 && icon <= 44){
-      return <WiNightRain size={40} color="#000"/>
+      return <WiNightRain size={80} color="#F2F2F2"/>
     } else if(icon >= 33 && icon <= 35){
-      return <WiNightClear size={40} color="#000"/>
+      return <WiNightClear size={80} color="#F2F2F2"/>
     } else if(icon === 22){
-      return <WiSnow size={40} color="#000"/>
+      return <WiSnow size={80} color="#F2F2F2"/>
     }
   }
-
+  // pega tudo que eu preciso da API
   async function getData(e){
     e.preventDefault();
     const response = await api.get(`/locations/v1/cities/search?apikey=${apikey}&q=${city+` `+state}`);
@@ -62,18 +61,18 @@ function App() {
 
         setTemperature(temperature);
         setLabel(label);
-        setIcon(IconNumber);
+        setIcon(IconNumber);    // seta em estados valores importantes que eu vou precisar no JSX
 
         localStorage.setItem('last_city', city);
-        localStorage.setItem('last_state', state);
+        localStorage.setItem('last_state', state); // seta o storage do navegador
 
       } catch(err){
-        alert('Localização Inválida!')
+        alert('Localização Inválida!')    // executa caso a primeira chamada a API retorne vazia
       }
     }
 
-    useEffect(()=>{
-      const getData = async()=>{
+    useEffect(()=>{ // hook useEffect para executar uma chamada a API caso haja algo no localStorage
+      const getData = async()=>{  // logo que a aplicação é iniciada
         const response = await api.get(`/locations/v1/cities/search?apikey=${apikey}&q=${city+` `+state}`);
           try{
             const locationKey = response.data[0].Key;
@@ -85,13 +84,15 @@ function App() {
             setLabel(label);
             setIcon(IconNumber);
       }
-      catch(err){
+      catch(err){ // não havendo nada no localStorage, o Hook retorna só um log
           console.log('Não há localStorage disponível')
       }
   }
       getData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+   // essa lista indicaria os gatilhos do hook. uma lista vazia indica execução ao iniciar
+    // a aplicação
 
   return (
     <div className="full-container">
@@ -101,20 +102,29 @@ function App() {
         <h3>Digite sua Cidade</h3>
         <input placeholder="Cidade" value={city} onChange={e => setCity(e.target.value)}/> 
         <input placeholder="Estado" value={state} onChange={e => setState(e.target.value)}/> 
-        <button type="submit"> Vai! </button>
+        <button type="submit"> Confirmar </button>
       </div>
       </form>
-      <div className="application-section">
-        <h1> Condições Climáticas </h1>
-        <section>
-        {selectIcon()}
-        </section>
-        <div className="display-data">
-        <p>Temperatura</p>
-        <p>{temperature}</p>
-        <p> Condições </p>
-        <p>{label}</p>
-        </div>
+      <div className="display-data">
+          <div className="title">
+          <h1> Condições do Tempo </h1>
+          {selectIcon()}
+          <p>{label}</p>
+          </div>
+          <div className="body">
+            <div>
+            <p>{temperature}°C </p>
+            <h3> Temperatura </h3>
+            </div>
+            <div>
+            <p>{temperature}°C </p>
+            <h3> Umidade </h3>
+            </div>
+            <div>
+            <p>{temperature}°C </p>
+            <h3> Vento </h3>
+            </div>
+          </div>
       </div>
     </div>
   );

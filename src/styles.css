@@ -2,18 +2,20 @@
 
 body{
   font: 400 14px Roboto, sans-serif;
-  background: #EEE9E9;
+  background-color: #d7f1ff;
   box-sizing: border-box;
 }
 
 .full-container{ 
+  background-color: #F2F2F2;
   width:100%;
   max-width:1120px;
   height: 100vh;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  border-radius: 30px;
 }
 .application-section{
   display: flex;
@@ -21,22 +23,32 @@ body{
   justify-content: space-evenly;
   align-items: center;
   border-radius: 30px;
-  border: 1px solid #000;
-    width: 300px;
-    max-width: 350px;
-    height: 300px;
-    max-height: 350px;
+  border: 1px solid #d3d3d3;
+  width: 300px;
+  max-width: 350px;
+  height: 300px;
+  max-height: 350px;
+  background-color: #f2f2f2;
 }
 
 .application-section h1{
-  color:  #5FA8D2;
+  color:  #3db0f7;
 }
 
 .application-section button{
   width: 100%;
   height: 60px;
   border-radius: 8px;
-  background: #e6e6fd;
+  background-color: #3db0f7;
+  color: #FFF;
+  transition-duration: 0.2s;
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.application-section button:hover{
+  background-color: #007aa3;
 }
 
 .application-section input{
@@ -50,11 +62,57 @@ body{
 
 .display-data {
   display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 30px;
+  border: 1px solid #d3d3d3;
+
+  background-color: #f2f2f2;
+}
+
+.display-data div.title {
+  width:100%;
+  height: 200px;
+  border-top-right-radius:30px;
+  border-top-left-radius:30px;
+  background-color: #007aa3;
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.display-data div.body {
+  display: flex;
+  width:100%;
+  height: 90px;
+  border-bottom-right-radius:30px;
+  border-bottom-left-radius:30px;
+  background-color: #F2F2F2;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.display-data div.body div{
+  display: flex;
+  flex-direction: column;
+  width:100%;
   justify-content: space-around;
   align-items: center;
-  flex-direction: column;
-  border: 1px solid #000;
-  border-radius: 2px;
-  width: 60%;
-  height: 60px;
+  
+}
+.display-data div.body div+div{
+  border-left: 1px solid #d3d3d3;
+}
+
+.display-data div.body div h3{
+  font-size: 12px;
+  font-weight: 400;
+  font-family: Roboto;
+  margin:0;
+}
+.display-data div.body div p{
+  margin:0;
+  font-size: 35px;
+  color: #808080;
 }
